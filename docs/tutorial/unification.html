@@ -1,0 +1,461 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Type Unification - LSTS Documentation</title>
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="Large Scale Type Systems Tutorial: A Categorical View of Typed Lambda Calculus">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="../favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="../favicon.png">
+        
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        
+        <link rel="stylesheet" href="../css/print.css" media="print">
+        
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="../fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        <link rel="sitemap" type="application/xml" title="Sitemap" href="/lsts-tutorial/sitemap.xml">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-0FD3R3RGQD"></script>
+        <script>
+           window.dataLayer = window.dataLayer || [];
+           function gtag(){dataLayer.push(arguments);}
+           gtag('js', new Date());
+
+           gtag('config', 'G-0FD3R3RGQD');
+        </script>
+
+        
+        <!-- MathJax -->
+        <script async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "../";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">User Guide</li><li class="chapter-item expanded "><a href="../guide/installation.html"><strong aria-hidden="true">1.</strong> Installation</a></li><li class="chapter-item expanded "><a href="../guide/syntax.html"><strong aria-hidden="true">2.</strong> Syntax Overview</a></li><li class="chapter-item expanded affix "><li class="part-title">Tutorial</li><li class="chapter-item expanded "><a href="../tutorial/terms.html"><strong aria-hidden="true">3.</strong> Terms</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/values.html"><strong aria-hidden="true">3.1.</strong> Value Expressions</a></li><li class="chapter-item expanded "><a href="../tutorial/blocks.html"><strong aria-hidden="true">3.2.</strong> Block Expressions</a></li><li class="chapter-item expanded "><a href="../tutorial/compounds.html"><strong aria-hidden="true">3.3.</strong> Compound Values</a></li><li class="chapter-item expanded "><a href="../tutorial/quantifiers.html"><strong aria-hidden="true">3.4.</strong> Quantified Values</a></li><li class="chapter-item expanded "><a href="../tutorial/fallible_arrows.html"><strong aria-hidden="true">3.5.</strong> Fallible Arrows</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorial/types.html"><strong aria-hidden="true">4.</strong> Types</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/value_types.html"><strong aria-hidden="true">4.1.</strong> Value Types</a></li><li class="chapter-item expanded "><a href="../tutorial/struct_types.html"><strong aria-hidden="true">4.2.</strong> Structured Types</a></li><li class="chapter-item expanded "><a href="../tutorial/union_types.html"><strong aria-hidden="true">4.3.</strong> Union Types</a></li><li class="chapter-item expanded "><a href="../tutorial/parameterized_types.html"><strong aria-hidden="true">4.4.</strong> Parameterized Types</a></li><li class="chapter-item expanded "><a href="../tutorial/type_invariants.html"><strong aria-hidden="true">4.5.</strong> Type Invariants</a></li><li class="chapter-item expanded "><a href="../tutorial/constant_types.html"><strong aria-hidden="true">4.6.</strong> Constant Types</a></li><li class="chapter-item expanded "><a href="../tutorial/unification.html" class="active"><strong aria-hidden="true">4.7.</strong> Type Unification</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorial/statements.html"><strong aria-hidden="true">5.</strong> Statements</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/theorem_statements.html"><strong aria-hidden="true">5.1.</strong> Theorem Statements</a></li><li class="chapter-item expanded "><a href="../tutorial/axiom_statements.html"><strong aria-hidden="true">5.2.</strong> Axiom Statements</a></li></ol></li><li class="chapter-item expanded "><a href="../tutorial/kinds.html"><strong aria-hidden="true">6.</strong> Kinds</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tutorial/normal_kinds.html"><strong aria-hidden="true">6.1.</strong> Normal Kinds</a></li><li class="chapter-item expanded "><a href="../tutorial/operations_on_kinds.html"><strong aria-hidden="true">6.2.</strong> Operations on Kinds</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Examples</li><li class="chapter-item expanded "><a href="../examples/examples.html"><strong aria-hidden="true">7.</strong> Programs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../examples/right_triangles.html"><strong aria-hidden="true">7.1.</strong> Right Triangles</a></li><li class="chapter-item expanded "><a href="../examples/goto_statement_considered_harmful.html"><strong aria-hidden="true">7.2.</strong> Jump Control Flow</a></li><li class="chapter-item expanded "><a href="../examples/batteries_not_included.html"><strong aria-hidden="true">7.3.</strong> Batteries Not Included</a></li><li class="chapter-item expanded "><a href="../examples/l1ir.html"><strong aria-hidden="true">7.4.</strong> L1 Intermediate Representation</a></li></ol></li><li class="chapter-item expanded "><a href="../proof/proofs.html"><strong aria-hidden="true">8.</strong> Proofs</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../proof/rules.html"><strong aria-hidden="true">8.1.</strong> Rules Based Logic</a></li><li class="chapter-item expanded "><a href="../proof/trivial.html"><strong aria-hidden="true">8.2.</strong> Trivial Proofs</a></li><li class="chapter-item expanded "><a href="../proof/sqrt2.html"><strong aria-hidden="true">8.3.</strong> Irrationality of the Square Root of Two</a></li><li class="chapter-item expanded "><a href="../proof/primes.html"><strong aria-hidden="true">8.4.</strong> Infinitude of Primes</a></li><li class="chapter-item expanded "><a href="../proof/strict_mode.html"><strong aria-hidden="true">8.5.</strong> Strictly Verified Proofs</a></li><li class="chapter-item expanded "><a href="../proof/justified_algebra.html"><strong aria-hidden="true">8.6.</strong> Justified Algebraic Manipulation</a></li><li class="chapter-item expanded "><a href="../proof/skolemization.html"><strong aria-hidden="true">8.7.</strong> Skolemization</a></li><li class="chapter-item expanded "><a href="../proof/most_general_unifier.html"><strong aria-hidden="true">8.8.</strong> Most General Unifier</a></li><li class="chapter-item expanded "><a href="../proof/implication_unifier.html"><strong aria-hidden="true">8.9.</strong> Implication Unifier</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Reference Guide</li><li class="chapter-item expanded "><a href="../cli/index.html"><strong aria-hidden="true">9.</strong> Command Line Tool</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../cli/lsts_parse.html"><strong aria-hidden="true">9.1.</strong> lsts parse</a></li><li class="chapter-item expanded "><a href="../cli/lsts_check.html"><strong aria-hidden="true">9.2.</strong> lsts check</a></li><li class="chapter-item expanded "><a href="../cli/lsts_build.html"><strong aria-hidden="true">9.3.</strong> lsts build</a></li><li class="chapter-item expanded "><a href="../cli/lsts_run.html"><strong aria-hidden="true">9.4.</strong> lsts run</a></li></ol></li><li class="chapter-item expanded "><a href="../validity/soundness.html"><strong aria-hidden="true">10.</strong> Soundness</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../validity/kinds.html"><strong aria-hidden="true">10.1.</strong> Kinded Proofs</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Quantitative Information</li><li class="chapter-item expanded "><a href="../perf/statistics.html"><strong aria-hidden="true">11.</strong> Performance</a></li><li class="spacer"></li><li class="chapter-item expanded affix "><a href="../misc/contributors.html">Contributors</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">LSTS Documentation</h1>
+
+                    <div class="right-buttons">
+                        
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                        
+                        <a href="https://github.com/andrew-johnson-4/lsts-tutorial" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa fa-github"></i>
+                        </a>
+                        
+                        
+
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h2><a class="header" href="#type-unification" id="type-unification">Type Unification</a></h2>
+<p>Unification is the process of testing whether one type implies another.
+Sometimes unification is written as A &lt;: B, which is called subsumption.
+For our use we tend towards arrow notation A =&gt; B which is called implication.
+The primary difference between the two is the directionality of the operation.
+A &lt;: B is equivalent to B =&gt; A, for the extent of our usage at least.</p>
+<p>In LSTS we often use the term Property and Type interchangeably.
+The primary difference in usage between these two concepts is how they are attached to Terms.
+A Term can typically have many properties.
+A Term can typically have only one type.
+We break this convention when we say that Types <em>are</em> Properties.
+In LSTS, Terms have multiple Properties.
+Equivalently, Terms have multiple Types.</p>
+<p>This would be all well and good if there were no consequences to this breaking from convention.
+There are consequences however.
+Due to these consequences we sometimes need to say, <em>there can only be one type</em>.</p>
+<p>One case where you can only have one type is in a normal kind.
+It does not make much sense to say that a term is both a Second and a Metre.
+A measurement can only have one Unit.
+We extend this principal to apply to all normal kinds.
+Normal kinds can only be inhabited by a single Type.</p>
+<p>A similar situation appears when we talk about representation of Terms.
+It is OK to say that a term is an Odd Integer, but not a String Integer.
+Both String and Integer are <em>valued types</em>.
+Valued Types have a representation and imply a value.
+Terms are only allowed to have one Valued Type.
+Valued Types are sometimes called Data Types.
+Data Types are singular.</p>
+<p>This preface is all we need to explain before even getting started to talk about unification.
+Unification is the beating heart of LSTS and it is very important that we get it right.</p>
+<h3><a class="header" href="#implication-vs-most-general-unifier" id="implication-vs-most-general-unifier">Implication vs Most General Unifier</a></h3>
+<p>Implication naturally has a direction, of that which is to potentially change somehow
+and therefore must be satisfied by what already exists on the other side.
+If nothing can change then we are checking for exact equality.
+If both sides can change, then the result is the Most General Unifier.
+This is why there are three unification operations: implication, MGU, and structural equality.</p>
+<table><thead><tr><th>A x B</th><th>A can narrow</th><th>A cannot narrow</th></tr></thead><tbody>
+<tr><td>B can narrow</td><td>MGU</td><td>B =&gt; A</td></tr>
+<tr><td>B cannot narrow</td><td>A =&gt; B</td><td>structural equality</td></tr>
+</tbody></table>
+<h3><a class="header" href="#unification-as-implemented" id="unification-as-implemented">Unification, as implemented</a></h3>
+<p>First let's look at the structure of a Type before we start moving anything around.</p>
+<pre><code class="language-lsts">type Type =
+     Any
+   | Named(String,Type[])
+   | And(Type[])
+   | Arrow(Type,Type)
+   | Tuple(Type[])
+   | Product(Type[])
+   | Ratio(Type,Type)
+   | Constant(Term)
+</code></pre>
+<p>Bottom is represented as the empty conjunctive.
+Tuple is order-sensitive.
+Nil is represented as the empty tuple.
+Product is order-insenstive.</p>
+<p>Unification is represented as the binary arrow operator: A =&gt; B.
+However, before we can start unification we must satisfy some preconditions.
+The following function gets called before any unification.</p>
+<pre><code class="language-lsts">let apply_preconditions( left_type: Type, right_type: Type ) = {
+    //rewrite Types with implied types explicitly included
+    //A + A =&gt; B will be rewritten as A + B
+    expand_subtypes( left_type );               
+    expand_subtypes( right_type );
+
+    //Constant types will be evaluated and normalized
+    //Constants may not become a Value, but they will be normal
+    reduce_constant_expressions( left_type );
+    reduce_constant_expressions( right_type ); 
+
+    //Types will be converted into CNF
+    //Products and Ratios will be reduced and ordered
+    normalize( left_type ); 
+    normalize( right_type );
+
+    //Assert that all preconditions are satisfied
+    //Check that Type is in CNF
+    //Check that Normal Kinds and Data Types are singular
+    assert_preconditions( left_type );
+    assert_preconditions( right_type );
+}
+</code></pre>
+<p>The actual unification function can be very fragile in some cases.
+How each case is treated has an outsized effect on the rest of our codebases.</p>
+<pre><code class="language-lsts">let $&quot;=&gt;&quot;(left_type: Type, right_type: Type): Type {
+   match (left_type, right_type) {
+
+      //the bottom type implies nothing
+      (And(lts), _) if lts.length==0 =&gt; { raise TypeError(&quot;Bottom implies nothing&quot;) },
+
+      //any type implies Any type
+      (l, Any) =&gt; { l },
+
+      //type variables get substituted for their greatest-common-denominator
+      (Named(lv,lps), rt) if lv.is_uppercase =&gt; {
+         if lv in substitutions {
+            substitutions[lv] = gcd(substitutions[lv], rt)
+         } else {
+            substitutions[lv] = rt
+         };
+         substitutions[lv]
+      },
+      (lt, Named(rv,rps)) if rv.is_uppercase =&gt; {
+         if rv in substitutions {
+            substitutions[rv] = gcd(lt, substitutions[rv])
+         } else {
+            substitutions[rv] = lt
+         };
+         substitutions[rv]
+      },
+
+      //And Unification has highest precedence
+      (_, And(rts) as rt) if rts.length==0 =&gt; { rt },
+      (And(lts) as lt, And(rts)) =&gt; {
+         let mts = [];
+         for rt in rts {
+            match lt =&gt; rt {
+               And(tts) =&gt; { mts.append(tts); },
+               tt =&gt; { mts.push(tt); },
+            }
+         }
+         mts.sort(); mts.dedup();
+         if mts.length==0 { raise TypeError(&quot;nothing implies Bottom&quot;) }
+         else if mts.length==1 { mts[0] }
+         else { And(mts) }
+      },
+      (And(lts), rt) =&gt; {
+         let mts = [];
+         for ltt in lts {
+            //it is OK if everything doesn't unify
+            //it is not OK if nothing unifies
+            if let Ok(nt) = try {ltt =&gt; rt} {
+               match nt {
+                  And(tts) =&gt; { mts.append(tts); },
+                  tt =&gt; { mts.push(tt); },
+               }
+            }
+         }
+         mts.sort(); mts.dedup();
+         if mts.length==0 { raise TypeError(&quot;nothing implies Bottom&quot;) }
+         else if mts.length==1 { mts[0] }
+         else { And(mts) }
+      },
+      (lt, And(rts)) =&gt; {
+         let mts = [];
+         for rt in rts {
+            if let Ok(nt) = try {lt =&gt; rt} {
+               match nt {
+                  And(tts) =&gt; { mts.append(tts); },
+                  tt =&gt; { mts.push(tt); },
+               }
+            } else {
+               raise TypeError(&quot;Implicit Narrowing of And Types is not permitted on the right&quot;)
+            }
+         }
+         mts.sort(); mts.dedup();
+         if mts.length==0 { raise TypeError(&quot;nothing implies Bottom&quot;) }
+         else if mts.length==1 { mts[0] }
+         else { And(mts) }
+      }
+
+      //Ratio Types have next precedence
+      (Ratio(nl,dl), Ratio(nr,dr)) =&gt; {
+         Ratio(nl =&gt; nr, dl =&gt; dr)
+      },
+      (lt, Ratio(nr,Tuple(dr))) if dr.length==0 =&gt; {
+         lt =&gt; nr
+      },
+
+      //Everything else is a mixed bag
+      (Named(lv,lps), Named(rv,rps)) if lv==rv &amp;&amp; lps.length==rps.length =&gt; {
+         Named(lv, [for (lp,rp) in zip(lps,rps) yield (lp =&gt; rp)])
+      }
+      (Arrow(pl,bl), Arrow(pr,br)) =&gt; {
+         Arrow(pl =&gt; pr, bl =&gt; br)
+      },
+      (Product(la), Product(ra)) if la.length==ra.length =&gt; {
+         Product([for (lt,rt) in zip(la,ra) yield (lt =&gt; rt)]
+      },
+      (Tuple(la), Tuple(ra)) if la.length==ra.length =&gt; {
+         Tuple([for (lt,rt) in zip(la,ra) yield (lt =&gt; rt)]
+      },
+      (Constant(lt), Constant(rt)) =&gt; {
+         if lt == rt {
+            Constant(lt)
+         } else {
+            raise TypeError(&quot;Constant Types are not equal&quot;)
+         }
+      }
+   }
+}
+</code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="../tutorial/constant_types.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+                            <a rel="next" href="../tutorial/statements.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+
+                    <div class="copyright-footer">
+                       Copyright <a href="https://www.subarctic.org">Andrew Johnson</a>, 2023.
+                    </div>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="../tutorial/constant_types.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+                    <a rel="next" href="../tutorial/statements.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_line_numbers = true;
+        </script>
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+        <script src="../ace.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../editor.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mode-rust.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../theme-dawn.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../theme-tomorrow_night.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
